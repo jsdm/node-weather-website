@@ -7,7 +7,6 @@ const forecast = (latitude, longitude, callback) => {
     ',' +
     longitude +
     '?units=si';
-
   request({ url, json: true }, (error, { body }) => {
     // console.log(body.error);
     if (error) {

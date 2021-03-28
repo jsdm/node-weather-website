@@ -3,6 +3,7 @@ const express = require('express');
 const hbs = require('hbs');
 const geocode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,14 +23,14 @@ app.use(express.static(publicDirectoryPath));
 app.get('', (req, res) => {
   res.render('index', {
     title: 'Weather',
-    name: 'Jan Dahl-Madsen'
+    name: 'Jan Dahl-Madsen',
   });
 });
 
 app.get('/about', (req, res) => {
   res.render('about', {
     title: 'About Me',
-    name: 'Jan Dahl-Madsen'
+    name: 'Jan Dahl-Madsen',
   });
 });
 
@@ -37,13 +38,13 @@ app.get('/help', (req, res) => {
   res.render('help', {
     helpText: 'This is some helpful text.',
     title: 'Help',
-    name: 'Jan Dahl-Madsen'
+    name: 'Jan Dahl-Madsen',
   });
 });
 
 app.get('/weather', (req, res) => {
   if (!req.query.address) {
-    return res.send({ Error: 'You must provide searcg term' });
+    return res.send({ Error: 'You must provide search term' });
   }
   // console.log(req.query.address);
   geocode(
@@ -60,7 +61,7 @@ app.get('/weather', (req, res) => {
         res.send({
           forecast: forecastData,
           location: location,
-          address: req.query.address
+          address: req.query.address,
         });
       });
     }
@@ -71,7 +72,7 @@ app.get('/products', (req, res) => {
     return res.send({ Error: 'You must provide searcg term' });
   }
   res.send({
-    products: []
+    products: [],
   });
 });
 
@@ -79,7 +80,7 @@ app.get('/help/*', (req, res) => {
   res.render('404', {
     title: '404',
     name: 'Jan Dahl-Madsen',
-    errorMessage: 'Help article not found.'
+    errorMessage: 'Help article not found.',
   });
 });
 
@@ -87,7 +88,7 @@ app.get('*', (req, res) => {
   res.render('404', {
     title: '404',
     name: 'Jan Dahl-Madsen',
-    errorMessage: 'Page not found.'
+    errorMessage: 'Page not found.',
   });
 });
 
